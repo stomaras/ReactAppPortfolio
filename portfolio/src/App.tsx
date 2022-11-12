@@ -60,6 +60,115 @@ react-redux has no idea what type of data is inside of our Redux store
 
 
 
+---------------------------------------------------------------------------------Transpiling Options----------------------------------------------------------------------------------------------
+Problem 2 would be solved if we could get Babel working in out React App 
+
+Option 1:
+------------------------------------------------
+            code          
+React App                   Backed API Server
+          Transpiled Code
+
+Option 2:
+---------------------------------------------
+
+code ------------------------> In-Browser
+                               Transpiler
+Transpiled
+Result    <-------------------                
+
+We run the transpiler directly inside of users browser 
+So we get the code throw into that transpile and immediately get out some kind of transpiled result
+
+message.js                        index.js
+
+
+export default 'Hello there'  import message from "./message"
+
+
+                  Bundler Webpack
+
+Bundler is going to take multiple different modules and combine them all together and somehow link them into one single file 
+Bundler is responsible to ensure that one module communicate with the other module
+
+Let see what webpack does during the transpiling process
+
+Bundler                                                                                                         We want a bundler that works slightly differently 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Read the contents of the entry file (index.js)
+Automatically found all the different require/import/export statements
+Automatically bundler found all the modules on our hard drive---------------------------------------------------> Automatically find all the modules the user has imported from NPM
+Linked these files together into a single output file with all values being correctly communicated around
+
+
+Bundling Option 1
+                  Code
+-------------------------------------------------------->  Backend API Server
+                                                            Webpack runs
+
+                                                            Webpack finds
+React App                                                   missing module
+
+                                                            npm install plugin--------> NPM registry
+                                                            gets module
+                                                            NpmInstallWebpackPlugin
+
+                                                            Bundle completed
+<---------------------------------------------------------
+              Bundled Code
+
+
+
+
+Bundling Option 2
+                  Code
+-------------------------------------------------------->  Backend API Server
+                                                            Webpack runs
+
+                                                            Webpack finds
+React App                                                   missing module
+
+                                                            We write plugin to-----------------------------> NPM registry
+                                                            fetch individual file                            React
+                                                            from npm                                          index.js
+                                                                                                              renderer.js
+                                                            Bundle completed
+<---------------------------------------------------------
+              Bundled Code
+
+
+Bundling Option 3
+                  Code                                      React App Bundling process here
+-------------------------------------------------------->  
+                                                            Webpack runs
+
+                                                            Webpack finds
+React App                                                   missing module
+
+                                                            We write plugin to-----------------------------> NPM registry
+                                                            fetch individual file                            React
+                                                            from npm                                          index.js
+                                                                                                              renderer.js
+                                                            Bundle completed
+<---------------------------------------------------------
+              Bundled Code
+
+
+              Transpiling/Bundling Remotely or Locally?
+
+
+Webpack does not work in the browser
+
+Raw user            Transpiling           Bundling
+code--------------> Babel--------------> Webpack------------> Code really to execute
+
+
+ESBuild is a single standalone tool that completely replaces both Babel and Webpack 
+        can transpile and bundle in the browser
+
+
+
+
 
 
 
