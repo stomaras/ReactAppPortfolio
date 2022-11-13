@@ -1,10 +1,10 @@
+import axios from "axios";
 import { Component } from "react";
 
 class SignUpPage extends Component {
   state = {
     username: "",
     email: "",
-    disabled: true,
     password: "",
     passwordRepeat: "",
   };
@@ -37,15 +37,26 @@ class SignUpPage extends Component {
     });
   };
 
+  submit = () => {
+    const { username, email, password } = this.state;
+    const body = {
+      username,
+      email,
+      password,
+    };
+    axios.post("/api/1.0/users", body);
+  };
+
   render() {
+    let disabled = true;
     const { password, passwordRepeat } = this.state;
     if (password && passwordRepeat) {
-      this.state.disabled = password !== passwordRepeat;
+      disabled = password !== passwordRepeat;
     }
 
     return (
       <div>
-        <h1 role="hea">Sign Up</h1>
+        <h1>Sign Up</h1>
         <label htmlFor="username">Username</label>
         <input id="username" onChange={this.onChangeUsername} />
         <label htmlFor="email">E-mail</label>
@@ -58,7 +69,7 @@ class SignUpPage extends Component {
           type="password"
           onChange={this.onChangeRepeatPassword}
         />
-        <button data-testid="register" disabled={this.state.disabled}>
+        <button data-testid="register" disabled={disabled}>
           Register
         </button>
       </div>
