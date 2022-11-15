@@ -9,35 +9,43 @@ class SignUpPage extends Component {
     passwordRepeat: "",
   };
 
-  onChangeUsername = (event) => {
-    const currentValue = event.target.value;
+  onChange = (event) => {
+    const { id, value } = event.target;
     this.setState({
-      username: currentValue,
+      [id]: value,
     });
   };
 
-  onChangeEmail = (event) => {
-    const currentValue = event.target.value;
-    this.setState({
-      email: currentValue,
-    });
-  };
+  // onChangeUsername = (event) => {
+  //   const currentValue = event.target.value;
+  //   this.setState({
+  //     username: currentValue,
+  //   });
+  // };
 
-  onChangePassword = (event) => {
-    const currentValue = event.target.value;
-    this.setState({
-      password: currentValue,
-    });
-  };
+  // onChangeEmail = (event) => {
+  //   const currentValue = event.target.value;
+  //   this.setState({
+  //     email: currentValue,
+  //   });
+  // };
 
-  onChangeRepeatPassword = (event) => {
-    const currentValue = event.target.value;
-    this.setState({
-      passwordRepeat: currentValue,
-    });
-  };
+  // onChangePassword = (event) => {
+  //   const currentValue = event.target.value;
+  //   this.setState({
+  //     password: currentValue,
+  //   });
+  // };
 
-  submit = () => {
+  // onChangeRepeatPassword = (event) => {
+  //   const currentValue = event.target.value;
+  //   this.setState({
+  //     passwordRepeat: currentValue,
+  //   });
+  // };
+
+  submit = (event) => {
+    event.preventDefault();
     const { username, email, password } = this.state;
     const body = {
       username,
@@ -56,22 +64,24 @@ class SignUpPage extends Component {
 
     return (
       <div>
-        <h1>Sign Up</h1>
-        <label htmlFor="username">Username</label>
-        <input id="username" onChange={this.onChangeUsername} />
-        <label htmlFor="email">E-mail</label>
-        <input id="email" onChange={this.onChangeEmail} />
-        <label htmlFor="password">Password</label>
-        <input id="password" type="password" onChange={this.onChangePassword} />
-        <label htmlFor="passwordRepeat">Password Repeat</label>
-        <input
-          id="passwordRepeat"
-          type="password"
-          onChange={this.onChangeRepeatPassword}
-        />
-        <button data-testid="register" disabled={disabled}>
-          Register
-        </button>
+        <form>
+          <h1>Sign Up</h1>
+          <label htmlFor="username">Username</label>
+          <input id="username" onChange={this.onChange} />
+          <label htmlFor="email">E-mail</label>
+          <input id="email" onChange={this.onChange} />
+          <label htmlFor="password">Password</label>
+          <input id="password" type="password" onChange={this.onChange} />
+          <label htmlFor="passwordRepeat">Password Repeat</label>
+          <input id="passwordRepeat" type="password" onChange={this.onChange} />
+          <button
+            data-testid="register"
+            disabled={disabled}
+            onClick={this.submit}
+          >
+            Register
+          </button>
+        </form>
       </div>
     );
   }
