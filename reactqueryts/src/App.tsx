@@ -93,4 +93,35 @@ Project Set up
 At the top of component tree we need to add the react query provider and provide the client to our application 
 
 
+
+
+
+
+
+
+---------------------------------------------------------------------React Query Tutorial 6 Query Cache--------------------------------------------------
+react query provides query cache by default every query result is cached for five minutes and react query relies on that cache for subsequent requests
+with stale time you does not allow more requests for this point of time
+
+--------------------------------------------------------------------React Query Tutorial - 8- Refetch Defaults--------------------------------------
+fetchSuperHeroes,
+    {
+      refetchOnMount: true,
+      refetchOnWindowFocus,
+    }
+  Depend on user interaction
+
+-----------------------------------------------------------------React Query Tutorial - 9 - Polling--------------------------------------
+
+polling refers to the process of fetching data at regular intervals for example a component that shows real time time for a stock
+
+refetchInterval configuration default reset to false
+
+{
+      refetchInterval: 2000,
+      refetchIntervalInBackground: true,
+}
+
+---------------------------------------------------------------React Query Tutorial - 10 - useQuery on click-------------------------------------------------
+
 */
