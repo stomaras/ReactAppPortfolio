@@ -12,4 +12,4 @@ export const useSuperHeroData = (heroId) => {
 };
 
 // with that way we have seperate query for each hero
-// we create a custom query hook
+// we create a custom query hook k
