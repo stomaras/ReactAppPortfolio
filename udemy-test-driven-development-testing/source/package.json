@@ -38,5 +38,6 @@
   "devDependencies": {
     "@testing-library/user-event": "^14.4.3",
     "msw": "^0.48.2"
-  }
+  },
+  "proxy": "http://localhost:8082"
 }

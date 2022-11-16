@@ -16,34 +16,6 @@ class SignUpPage extends Component {
     });
   };
 
-  // onChangeUsername = (event) => {
-  //   const currentValue = event.target.value;
-  //   this.setState({
-  //     username: currentValue,
-  //   });
-  // };
-
-  // onChangeEmail = (event) => {
-  //   const currentValue = event.target.value;
-  //   this.setState({
-  //     email: currentValue,
-  //   });
-  // };
-
-  // onChangePassword = (event) => {
-  //   const currentValue = event.target.value;
-  //   this.setState({
-  //     password: currentValue,
-  //   });
-  // };
-
-  // onChangeRepeatPassword = (event) => {
-  //   const currentValue = event.target.value;
-  //   this.setState({
-  //     passwordRepeat: currentValue,
-  //   });
-  // };
-
   submit = (event) => {
     event.preventDefault();
     const { username, email, password } = this.state;

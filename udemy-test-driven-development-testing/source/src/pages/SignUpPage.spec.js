@@ -82,9 +82,6 @@ describe("Sign Up Page", () => {
       await userEvent.type(passwordRepeatInput, "P4ssword");
       const button = screen.queryByRole("button", { name: "Register" });
 
-      const mockFn = jest.fn();
-      axios.post = mockFn;
-
       await userEvent.click(button);
       await new Promise((resolve) => setTimeout(resolve, 500));
 
