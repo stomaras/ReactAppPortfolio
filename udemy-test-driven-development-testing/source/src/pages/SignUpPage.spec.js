@@ -54,6 +54,21 @@ describe("Sign Up Page", () => {
     });
   });
   describe("Interactions", () => {
+    let button;
+
+    const setup = async () => {
+      render(<SignUpPage />);
+      const usernameInput = screen.getByLabelText("Username");
+      const emailInput = screen.getByLabelText("E-mail");
+      const passwordInput = screen.getByLabelText("Password");
+      const passwordRepeatInput = screen.getByLabelText("Password Repeat");
+      await userEvent.type(usernameInput, "user1");
+      await userEvent.type(emailInput, "user1@mail.com");
+      await userEvent.type(passwordInput, "P4ssword");
+      await userEvent.type(passwordRepeatInput, "P4ssword");
+      button = screen.queryByRole("button", { name: "Register" });
+    }
+
     it("enables the button when password and password repeat have the same value", async () => {
       render(<SignUpPage />);
       const passwordInput = screen.getByLabelText("Password");
@@ -71,17 +86,7 @@ describe("Sign Up Page", () => {
         })
       );
       server.listen();
-      render(<SignUpPage />);
-      const usernameInput = screen.getByLabelText("Username");
-      const emailInput = screen.getByLabelText("E-mail");
-      const passwordInput = screen.getByLabelText("Password");
-      const passwordRepeatInput = screen.getByLabelText("Password Repeat");
-      await userEvent.type(usernameInput, "user1");
-      await userEvent.type(emailInput, "user1@mail.com");
-      await userEvent.type(passwordInput, "P4ssword");
-      await userEvent.type(passwordRepeatInput, "P4ssword");
-      const button = screen.queryByRole("button", { name: "Register" });
-
+      setup();
       await userEvent.click(button);
       await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -106,15 +111,13 @@ describe("Sign Up Page", () => {
       const emailInput = screen.getByLabelText("E-mail");
       const passwordInput = screen.getByLabelText("Password");
       const passwordRepeatInput = screen.getByLabelText("Password Repeat");
-      userEvent.type(usernameInput, "user1");
-      userEvent.type(emailInput, "user1@mail.com");
-      userEvent.type(passwordInput, "P4ssword");
-      userEvent.type(passwordRepeatInput, "P4ssword");
+      await userEvent.type(usernameInput, "user1");
+      await userEvent.type(emailInput, "user1@mail.com");
+      await userEvent.type(passwordInput, "P4ssword");
+      await userEvent.type(passwordRepeatInput, "P4ssword");
       const button = screen.queryByRole("button", { name: "Register" });
-      userEvent.click(button);
-      userEvent.click(button);
-      userEvent.click(button);
-
+      await userEvent.click(button);
+      await userEvent.click(button);
       await new Promise((resolve) => setTimeout(resolve, 500));
       expect(counter).toBe(1);
       server.close()

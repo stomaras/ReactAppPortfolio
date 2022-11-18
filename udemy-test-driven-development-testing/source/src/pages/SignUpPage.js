@@ -7,6 +7,7 @@ class SignUpPage extends Component {
     email: "",
     password: "",
     passwordRepeat: "",
+    apiProgress: false
   };
 
   onChange = (event) => {
@@ -24,12 +25,13 @@ class SignUpPage extends Component {
       email,
       password,
     };
+    this.setState({apiProgress: true});
     axios.post("/api/1.0/users", body);
   };
 
   render() {
     let disabled = true;
-    const { password, passwordRepeat } = this.state;
+    const { password, passwordRepeat, apiProgress } = this.state;
     if (password && passwordRepeat) {
       disabled = password !== passwordRepeat;
     }
@@ -60,7 +62,7 @@ class SignUpPage extends Component {
             <button
               className="btn btn-primary"
               data-testid="register"
-              disabled={disabled}
+              disabled={disabled || apiProgress}
               onClick={this.submit}
             >
               Register
