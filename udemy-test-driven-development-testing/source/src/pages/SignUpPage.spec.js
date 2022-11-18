@@ -62,7 +62,7 @@ describe("Sign Up Page", () => {
       await userEvent.type(passwordRepeatInput, "P4ssowrd");
       expect(screen.getByTestId("register")).toBeEnabled();
     });
-    it("sends username, password, email to backend after clcking the button", async () => {
+    it("sends username, password, email to backend after clicking the button", async () => {
       let requestBody;
       const server = setupServer(
         rest.post("/api/1.0/users", (req, res, ctx) => {
@@ -90,6 +90,31 @@ describe("Sign Up Page", () => {
         email: "user1@mail.com",
         password: "P4ssword",
       });
+    });
+    it("disabled button when there is an ongoing api call", async () => {
+      let counter = 0;
+      const server = setupServer(
+        rest.post("/api/1.0/users", (req, res, ctx) => {
+          counter += 1;
+          return res(ctx.status(200));
+        })
+      );
+      server.listen();
+      render(<SignUpPage />);
+      const usernameInput = screen.getByLabelText("Username");
+      const emailInput = screen.getByLabelText("E-mail");
+      const passwordInput = screen.getByLabelText("Password");
+      const passwordRepeatInput = screen.getByLabelText("Password Repeat");
+      userEvent.type(usernameInput, "user1");
+      userEvent.type(emailInput, "user1@mail.com");
+      userEvent.type(passwordInput, "P4ssword");
+      userEvent.type(passwordRepeatInput, "P4ssword");
+      const button = screen.queryByRole("button", { name: "Register" });
+      userEvent.click(button);
+      userEvent.click(button);
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      expect(counter).toBe(1);
     });
   });
 });
