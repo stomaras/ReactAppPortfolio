@@ -90,6 +90,7 @@ describe("Sign Up Page", () => {
         email: "user1@mail.com",
         password: "P4ssword",
       });
+      server.close();
     });
     it("disabled button when there is an ongoing api call", async () => {
       let counter = 0;
@@ -112,9 +113,11 @@ describe("Sign Up Page", () => {
       const button = screen.queryByRole("button", { name: "Register" });
       userEvent.click(button);
       userEvent.click(button);
+      userEvent.click(button);
 
       await new Promise((resolve) => setTimeout(resolve, 500));
       expect(counter).toBe(1);
+      server.close()
     });
   });
 });
