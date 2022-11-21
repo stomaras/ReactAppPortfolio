@@ -3,13 +3,15 @@ import { Fragment } from "react";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
 import "./navigation.styles.scss";
+import { LocationDisplay } from "../../components/LocationDisplay";
 
-const Navigation = () => {
+export const Navigation = () => {
   return (
     <Fragment>
       <div className="navigation">
         <Link className="logo-container" to="/">
-          <CrwnLogo className="logo" />
+          Logo
+          {/* <CrwnLogo className="logo" /> */}
         </Link>
         <div>Logo</div>
         <div className="links-container">
@@ -21,6 +23,7 @@ const Navigation = () => {
           </Link>
         </div>
       </div>
+      <LocationDisplay />
       <Outlet />
     </Fragment>
   );

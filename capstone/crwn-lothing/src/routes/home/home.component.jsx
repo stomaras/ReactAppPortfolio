@@ -31,9 +31,11 @@ const Home = () => {
   ];
 
   return (
-    <div className="categories-container">
-      <Directory categories={categories} />
-      <Outlet />
+    <div data-testid="home-id">
+      <div className="categories-container">
+        <Directory categories={categories} />
+        <Outlet />
+      </div>
     </div>
   );
 };
