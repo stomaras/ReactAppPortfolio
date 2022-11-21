@@ -6,6 +6,7 @@ import { setupServer } from "msw/node";
 import { rest } from "msw";
 
 describe("Sign Up Page", () => {
+
   describe("Layout", () => {
     it("has header", () => {
       render(<SignUpPage />);
@@ -53,24 +54,11 @@ describe("Sign Up Page", () => {
       expect(button).toBeDisabled();
     });
   });
+  
   describe("Interactions", () => {
-    it("enables the button when password and password repeat have the same value", async () => {
-      render(<SignUpPage />);
-      const passwordInput = screen.getByLabelText("Password");
-      const passwordRepeatInput = screen.getByLabelText("Password Repeat");
-      await userEvent.type(passwordInput, "P4ssowrd");
-      await userEvent.type(passwordRepeatInput, "P4ssowrd");
-      expect(screen.getByTestId("register")).toBeEnabled();
-    });
-    it("sends username, password, email to backend after clcking the button", async () => {
-      let requestBody;
-      const server = setupServer(
-        rest.post("/api/1.0/users", (req, res, ctx) => {
-          requestBody = req.body;
-          return res(ctx.status(200));
-        })
-      );
-      server.listen();
+    let button;
+
+    const setup = async () => {
       render(<SignUpPage />);
       const usernameInput = screen.getByLabelText("Username");
       const emailInput = screen.getByLabelText("E-mail");
@@ -80,8 +68,23 @@ describe("Sign Up Page", () => {
       await userEvent.type(emailInput, "user1@mail.com");
       await userEvent.type(passwordInput, "P4ssword");
       await userEvent.type(passwordRepeatInput, "P4ssword");
-      const button = screen.queryByRole("button", { name: "Register" });
+      button = screen.queryByRole("button", { name: "Register" });
+    }
 
+    it("enables the button when password and password repeat fields have the same value", async () => {
+      await setup();
+      expect(screen.getByTestId("register")).toBeEnabled();
+    });
+    it("sends username, password, email to backend after clicking the button", async () => {
+      let requestBody;
+      const server = setupServer(
+        rest.post("/api/1.0/users", (req, res, ctx) => {
+          requestBody = req.body;
+          return res(ctx.status(200));
+        })
+      );
+      server.listen();
+      await setup();
       await userEvent.click(button);
       await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -90,6 +93,37 @@ describe("Sign Up Page", () => {
         email: "user1@mail.com",
         password: "P4ssword",
       });
+      server.close();
+    });
+    it("disables button when there is an ongoing api call", async () => {
+      let counter = 0;
+      const server = setupServer(
+        rest.post("/api/1.0/users", (req, res, ctx) => {
+          counter += 1;
+          return res(ctx.status(200));
+        })
+      );
+      server.listen();
+      await setup();
+      await userEvent.click(button);
+      await userEvent.click(button);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      expect(counter).toBe(1);
+      server.close()
+    });
+    it("displays spinner after clicking the submit", async () => {
+      const server = setupServer(
+        rest.post("/api/1.0/users", (req, res, ctx) => {
+          return res(ctx.status(200));
+        })
+      );
+      server.listen();
+      await setup();
+      expect(screen.queryByRole('status')).not.toBeInTheDocument();
+      await userEvent.click(button);
+      const spinner = screen.getByRole('status', { hidden:true });
+      expect(spinner).toBeInTheDocument();
+      server.close()
     });
   });
 });
