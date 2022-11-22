@@ -1,5 +1,5 @@
 import SignUpPage from "./SignUpPage";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import axios from "axios";
 import { setupServer } from "msw/node";
@@ -86,7 +86,8 @@ describe("Sign Up Page", () => {
       server.listen();
       await setup();
       await userEvent.click(button);
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      
+      await screen.findByText('Please check your e-mail to activate your account');
 
       expect(requestBody).toEqual({
         username: "user1",
@@ -107,7 +108,7 @@ describe("Sign Up Page", () => {
       await setup();
       await userEvent.click(button);
       await userEvent.click(button);
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await screen.findByText('Please check your e-mail to activate your account');
       expect(counter).toBe(1);
       server.close()
     });
@@ -123,7 +124,37 @@ describe("Sign Up Page", () => {
       await userEvent.click(button);
       const spinner = screen.getByRole('status', { hidden:true });
       expect(spinner).toBeInTheDocument();
-      server.close()
+      await screen.findByText('Please check your e-mail to activate your account');
+      server.close();
     });
+    it("displays account activation notification after successful sign up request", async () => {
+      const server = setupServer(
+        rest.post("/api/1.0/users", (req, res, ctx) => {
+          return res(ctx.status(200));
+        })
+      );
+      server.listen();
+      await setup();
+      const message = 'Please check your e-mail to activate your account';
+      expect(screen.queryByText(message)).not.toBeInTheDocument();
+      await userEvent.click(button);
+      const text = await screen.findByText(message);
+      expect(text).toBeInTheDocument();
+    });
+    it('hides sign up form after successful sign up request', async () => {
+      const server = setupServer(
+        rest.post("/api/1.0/users", (req, res, ctx) => {
+          return res(ctx.status(200));
+        })
+      );
+      server.listen();
+      await setup();
+      const form = screen.getByTestId("form-sign-up");
+      await userEvent.click(button);
+      await waitFor(() => {
+        expect(form).not.toBeInTheDocument();
+      })
+      //await waitForElementToBeRemoved(form);
+    })
   });
 });

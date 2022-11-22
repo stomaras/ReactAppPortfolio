@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import axios from "axios";
 import { Component } from "react";
 
@@ -7,7 +8,8 @@ class SignUpPage extends Component {
     email: "",
     password: "",
     passwordRepeat: "",
-    apiProgress: false
+    apiProgress: false,
+    signUpSuccess: false
   };
 
   onChange = (event) => {
@@ -26,18 +28,21 @@ class SignUpPage extends Component {
       password,
     };
     this.setState({apiProgress: true});
-    axios.post("/api/1.0/users", body);
+    axios.post("/api/1.0/users", body).then(() => {
+      this.setState({signUpSuccess:true});
+    });
   };
 
   render() {
     let disabled = true;
-    const { password, passwordRepeat, apiProgress } = this.state;
+    const { password, passwordRepeat, apiProgress, signUpSuccess } = this.state;
     if (password && passwordRepeat) {
       disabled = password !== passwordRepeat;
     }
 
     return (
-        <form className="card mt-5">
+      <div>
+      {!signUpSuccess && <form className="card mt-5" data-testid="form-sign-up">
           <div className="card-header">
             <h1 className="text-center">Sign Up</h1>
           </div>
@@ -70,7 +75,11 @@ class SignUpPage extends Component {
             </button>
           </div>
           </div>
-        </form>
+        </form>}
+        {signUpSuccess && (<div className="alert alert-success mt-3">
+          Please check your e-mail to activate your account
+        </div>)}
+      </div>
     );
   }
 }
