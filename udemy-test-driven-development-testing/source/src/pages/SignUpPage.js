@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import axios from "axios";
 import { Component } from "react";
+import Input from "../components/Input";
 
 class SignUpPage extends Component {
   state = {
@@ -55,19 +56,22 @@ class SignUpPage extends Component {
             <h1 className="text-center">Sign Up</h1>
           </div>
           <div className="card-body">
-          <div className="mb-3">
+            <Input id="username" label="Username" onChange={this.onChange} help={errors.username}/>
+            <Input id="email" label="E-mail" onChange={this.onChange} help={errors.email}/>
+            <Input id="password" label="Password" onChange={this.onChange} help={errors.password} type="password"/>
+          {/* <div className="mb-3">
             <label htmlFor="username" className="form-label">Username</label>
             <input id="username" className="form-control" onChange={this.onChange} />
             <span>{errors.username}</span>
-          </div>
-          <div className="mb-3">
+          </div> */}
+          {/* <div className="mb-3">
             <label htmlFor="email" className="form-label">E-mail</label>
             <input id="email" className="form-control" onChange={this.onChange} />
-          </div>
-          <div className="mb-3">
+          </div> */}
+          {/* <div className="mb-3">
             <label htmlFor="password" className="form-label">Password</label>
             <input id="password" type="password" className="form-control" onChange={this.onChange} />
-          </div>
+          </div> */}
           <div className="mb-3">  
             <label htmlFor="passwordRepeat" className="form-label">Password Repeat</label>
             <input id="passwordRepeat" type="password" className="form-control" onChange={this.onChange} />
