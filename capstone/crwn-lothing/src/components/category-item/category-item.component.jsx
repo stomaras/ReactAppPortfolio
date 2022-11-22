@@ -1,6 +1,6 @@
 import "./category-item.styes.scss";
 
-const CategoryItem = ({ category }) => {
+export const CategoryItem = ({ category }) => {
   const { imageUrl, title } = category;
   return (
     <div className="category-container">
