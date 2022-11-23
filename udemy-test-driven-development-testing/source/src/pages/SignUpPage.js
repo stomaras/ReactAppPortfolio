@@ -2,6 +2,7 @@
 import axios from "axios";
 import { Component } from "react";
 import Input from "../components/Input";
+import { withTranslation } from "react-i18next";
 
 class SignUpPage extends Component {
   state = {
@@ -47,6 +48,7 @@ class SignUpPage extends Component {
 
 
   render() {
+    const { t } = this.props;
     let disabled = true;
     const { password, passwordRepeat, apiProgress, signUpSuccess, errors } = this.state;
     if (password && passwordRepeat) {
@@ -59,7 +61,7 @@ class SignUpPage extends Component {
       <div>
       {!signUpSuccess && <form className="card mt-5" data-testid="form-sign-up">
           <div className="card-header">
-            <h1 className="text-center">Sign Up</h1>
+            <h1 className="text-center">{t('signUp')}</h1>
           </div>
           <div className="card-body">
             <Input id="username" label="Username" onChange={this.onChange} help={errors.username}/>
@@ -104,4 +106,5 @@ class SignUpPage extends Component {
   }
 }
 
-export default SignUpPage;
+const SignUpPageWithTranslation = withTranslation()(SignUpPage);
+export default SignUpPageWithTranslation;
