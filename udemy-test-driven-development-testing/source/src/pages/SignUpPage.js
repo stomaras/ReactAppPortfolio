@@ -49,6 +49,8 @@ class SignUpPage extends Component {
       disabled = password !== passwordRepeat;
     }
 
+    let passwordMismatch = password !== passwordRepeat ? 'Password mismatch': "";
+
     return (
       <div>
       {!signUpSuccess && <form className="card mt-5" data-testid="form-sign-up">
@@ -59,6 +61,7 @@ class SignUpPage extends Component {
             <Input id="username" label="Username" onChange={this.onChange} help={errors.username}/>
             <Input id="email" label="E-mail" onChange={this.onChange} help={errors.email}/>
             <Input id="password" label="Password" onChange={this.onChange} help={errors.password} type="password"/>
+            <Input id="passwordRepeat" label="Password Repeat" onChange={this.onChange} help={passwordMismatch} type="password"/>
           {/* <div className="mb-3">
             <label htmlFor="username" className="form-label">Username</label>
             <input id="username" className="form-control" onChange={this.onChange} />
@@ -72,10 +75,10 @@ class SignUpPage extends Component {
             <label htmlFor="password" className="form-label">Password</label>
             <input id="password" type="password" className="form-control" onChange={this.onChange} />
           </div> */}
-          <div className="mb-3">  
+          {/* <div className="mb-3">  
             <label htmlFor="passwordRepeat" className="form-label">Password Repeat</label>
             <input id="passwordRepeat" type="password" className="form-control" onChange={this.onChange} />
-          </div>
+          </div> */}
           <div className="text-center">
             <button
               className="btn btn-primary"

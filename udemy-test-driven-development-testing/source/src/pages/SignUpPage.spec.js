@@ -75,14 +75,14 @@ describe("Sign Up Page", () => {
 
     afterAll(() => server.close());
 
-    let button;
+    let button, passwordInput, passwordRepeatInput;
 
     const setup = async () => {
       render(<SignUpPage />);
       const usernameInput = screen.getByLabelText("Username");
       const emailInput = screen.getByLabelText("E-mail");
-      const passwordInput = screen.getByLabelText("Password");
-      const passwordRepeatInput = screen.getByLabelText("Password Repeat");
+      passwordInput = screen.getByLabelText("Password");
+      passwordRepeatInput = screen.getByLabelText("Password Repeat");
       await userEvent.type(usernameInput, "user1");
       await userEvent.type(emailInput, "user1@mail.com");
       await userEvent.type(passwordInput, "P4ssword");
@@ -179,6 +179,13 @@ describe("Sign Up Page", () => {
       expect(screen.queryByRole('status')).not.toBeInTheDocument();
       expect(button).toBeEnabled();
     });
+    it("displays mispatch message for password repeat input", async () => {
+      await setup();
+      await userEvent.type(passwordInput, 'P4ssword');
+      await userEvent.type(passwordRepeatInput, 'AnotherP4ssword');
+      const validationError = screen.queryByText("Password mismatch");
+      expect(validationError).toBeInTheDocument();
+    })
     // it("displays validation message for email", async () => {
     //   server.use(
     //     rest.post("/api/1.0/users", (req, res, ctx) => {
