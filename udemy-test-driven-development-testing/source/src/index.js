@@ -12,7 +12,20 @@ i18n
     resources:{
       en: {
         translation: {
-          signUp: 'Sign Up'
+          signUp: 'Sign Up',
+          username:'Username',
+          email:'E-mail',
+          password:'Password',
+          passwordRepeat:'Password Repeat'
+        }
+      },
+      tr: {
+        translation: {
+          signUp: 'Kayit Ol',
+          username:'Kullanici Adi',
+          email:'E-posta',
+          password:'Sifre',
+          passwordRepeat:'Sifre Tekrari'
         }
       },
     },

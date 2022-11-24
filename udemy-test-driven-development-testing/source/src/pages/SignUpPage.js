@@ -64,10 +64,10 @@ class SignUpPage extends Component {
             <h1 className="text-center">{t('signUp')}</h1>
           </div>
           <div className="card-body">
-            <Input id="username" label="Username" onChange={this.onChange} help={errors.username}/>
-            <Input id="email" label="E-mail" onChange={this.onChange} help={errors.email}/>
-            <Input id="password" label="Password" onChange={this.onChange} help={errors.password} type="password"/>
-            <Input id="passwordRepeat" label="Password Repeat" onChange={this.onChange} help={passwordMismatch} type="password"/>
+            <Input id="username" label={t('username')} onChange={this.onChange} help={errors.username}/>
+            <Input id="email" label={t('email')} onChange={this.onChange} help={errors.email}/>
+            <Input id="password" label={t('password')} onChange={this.onChange} help={errors.password} type="password"/>
+            <Input id="passwordRepeat" label={t('passwordRepeat')} onChange={this.onChange} help={passwordMismatch} type="password"/>
           {/* <div className="mb-3">
             <label htmlFor="username" className="form-label">Username</label>
             <input id="username" className="form-control" onChange={this.onChange} />
