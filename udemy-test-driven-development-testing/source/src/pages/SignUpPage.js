@@ -93,7 +93,7 @@ class SignUpPage extends Component {
               onClick={this.submit}
             >
           {apiProgress && (<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>)}
-              Register
+              {t('register')}
             </button>
           </div>
           </div>

@@ -3,39 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { initReactI18next} from "react-i18next";
-import i18n from "i18next";
-
-i18n
-  .use(initReactI18next)
-  .init({
-    resources:{
-      en: {
-        translation: {
-          signUp: 'Sign Up',
-          username:'Username',
-          email:'E-mail',
-          password:'Password',
-          passwordRepeat:'Password Repeat'
-        }
-      },
-      tr: {
-        translation: {
-          signUp: 'Kayit Ol',
-          username:'Kullanici Adi',
-          email:'E-posta',
-          password:'Sifre',
-          passwordRepeat:'Sifre Tekrari'
-        }
-      },
-    },
-    lng:'en',
-    fallbacking:'en',
-    interpolation:{
-      escapeValue:false
-    }
-  });
-
+import "./locale/i18n";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
