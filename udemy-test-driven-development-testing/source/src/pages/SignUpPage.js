@@ -46,6 +46,10 @@ class SignUpPage extends Component {
     }
   };
 
+  onClickTurkish = () => {
+    this.props.i18n.changeLanguage("tr")
+  }
+
 
   render() {
     const { t } = this.props;
@@ -68,23 +72,6 @@ class SignUpPage extends Component {
             <Input id="email" label={t('email')} onChange={this.onChange} help={errors.email}/>
             <Input id="password" label={t('password')} onChange={this.onChange} help={errors.password} type="password"/>
             <Input id="passwordRepeat" label={t('passwordRepeat')} onChange={this.onChange} help={passwordMismatch} type="password"/>
-          {/* <div className="mb-3">
-            <label htmlFor="username" className="form-label">Username</label>
-            <input id="username" className="form-control" onChange={this.onChange} />
-            <span>{errors.username}</span>
-          </div> */}
-          {/* <div className="mb-3">
-            <label htmlFor="email" className="form-label">E-mail</label>
-            <input id="email" className="form-control" onChange={this.onChange} />
-          </div> */}
-          {/* <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password</label>
-            <input id="password" type="password" className="form-control" onChange={this.onChange} />
-          </div> */}
-          {/* <div className="mb-3">  
-            <label htmlFor="passwordRepeat" className="form-label">Password Repeat</label>
-            <input id="passwordRepeat" type="password" className="form-control" onChange={this.onChange} />
-          </div> */}
           <div className="text-center">
             <button
               className="btn btn-primary"
@@ -101,6 +88,7 @@ class SignUpPage extends Component {
         {signUpSuccess && (<div className="alert alert-success mt-3">
           Please check your e-mail to activate your account
         </div>)}
+        <span title="Turkce" onClick={() => this.props.i18n.changeLanguage("tr")}>TR</span>
       </div>
     );
   }

@@ -5,6 +5,8 @@ import axios from "axios";
 import { setupServer } from "msw/node";
 import { rest } from "msw";
 import "../locale/i18n";
+import en from "../locale/en.json";
+import tr from "../locale/tr.json";
 
 describe("Sign Up Page", () => {
 
@@ -215,4 +217,29 @@ describe("Sign Up Page", () => {
     //   expect(validationError).toBeInTheDocument();
     // })
   });
+
+  describe("Internationalization", () => {
+    it("Initially display all text in english", () => {
+      render(<SignUpPage/>);
+      expect(screen.getByRole("heading", {name: en.signUp})).toBeInTheDocument();
+      expect(screen.getByRole('button', {name: 'Register'})).toBeInTheDocument();
+      expect(screen.getByLabelText(en.username)).toBeInTheDocument();
+      expect(screen.getByLabelText(en.email)).toBeInTheDocument();
+      expect(screen.getByLabelText(en.password)).toBeInTheDocument();
+      expect(screen.getByLabelText(en.passwordRepeat)).toBeInTheDocument();
+    })
+    it("Displays all text in turkish after changing the language", () => {
+      render(<SignUpPage/>);
+
+      const turkishToggle = screen.getByTitle("Turkce");
+      userEvent.click(turkishToggle);
+
+      expect(screen.getByRole("heading", {name: tr.signUp})).toBeInTheDocument();
+      expect(screen.getByRole('button', {name: tr.register})).toBeInTheDocument();
+      expect(screen.getByLabelText(tr.username)).toBeInTheDocument();
+      expect(screen.getByLabelText(tr.email)).toBeInTheDocument();
+      expect(screen.getByLabelText(tr.password)).toBeInTheDocument();
+      expect(screen.getByLabelText(tr.passwordRepeat)).toBeInTheDocument();
+    })
+  })
 });
