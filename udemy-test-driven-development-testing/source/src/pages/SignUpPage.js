@@ -3,6 +3,7 @@ import axios from "axios";
 import { Component } from "react";
 import Input from "../components/Input";
 import { withTranslation } from "react-i18next";
+import LanguageSelector from "../components/LanguageSelector";
 
 class SignUpPage extends Component {
   state = {
@@ -88,7 +89,7 @@ class SignUpPage extends Component {
         {signUpSuccess && (<div className="alert alert-success mt-3">
           Please check your e-mail to activate your account
         </div>)}
-        <span title="Turkce" onClick={() => this.props.i18n.changeLanguage("tr")}>TR</span>
+        <LanguageSelector/>
       </div>
     );
   }

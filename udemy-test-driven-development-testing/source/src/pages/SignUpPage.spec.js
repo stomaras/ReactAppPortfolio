@@ -222,17 +222,17 @@ describe("Sign Up Page", () => {
     it("Initially display all text in english", () => {
       render(<SignUpPage/>);
       expect(screen.getByRole("heading", {name: en.signUp})).toBeInTheDocument();
-      expect(screen.getByRole('button', {name: 'Register'})).toBeInTheDocument();
+      expect(screen.getByRole('button', {name: en.register})).toBeInTheDocument();
       expect(screen.getByLabelText(en.username)).toBeInTheDocument();
       expect(screen.getByLabelText(en.email)).toBeInTheDocument();
       expect(screen.getByLabelText(en.password)).toBeInTheDocument();
       expect(screen.getByLabelText(en.passwordRepeat)).toBeInTheDocument();
     })
-    it("Displays all text in turkish after changing the language", () => {
+    it("Displays all text in turkish after changing the language", async () => {
       render(<SignUpPage/>);
 
       const turkishToggle = screen.getByTitle("Turkce");
-      userEvent.click(turkishToggle);
+      await userEvent.click(turkishToggle);
 
       expect(screen.getByRole("heading", {name: tr.signUp})).toBeInTheDocument();
       expect(screen.getByRole('button', {name: tr.register})).toBeInTheDocument();
@@ -240,6 +240,21 @@ describe("Sign Up Page", () => {
       expect(screen.getByLabelText(tr.email)).toBeInTheDocument();
       expect(screen.getByLabelText(tr.password)).toBeInTheDocument();
       expect(screen.getByLabelText(tr.passwordRepeat)).toBeInTheDocument();
+    })
+    it("Displays all text in english after changing back from turkish", async () => {
+      render(<SignUpPage/>);
+
+      const turkishToggle = screen.getByTitle("Turkce");
+      await userEvent.click(turkishToggle);
+      const englishToggle = screen.getByTitle("English");
+      await userEvent.click(englishToggle);
+
+      expect(screen.getByRole("heading", {name: en.signUp})).toBeInTheDocument();
+      expect(screen.getByRole('button', {name: en.register})).toBeInTheDocument();
+      expect(screen.getByLabelText(en.username)).toBeInTheDocument();
+      expect(screen.getByLabelText(en.email)).toBeInTheDocument();
+      expect(screen.getByLabelText(en.password)).toBeInTheDocument();
+      expect(screen.getByLabelText(en.passwordRepeat)).toBeInTheDocument();
     })
   })
 });
