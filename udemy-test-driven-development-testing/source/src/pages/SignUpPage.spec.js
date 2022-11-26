@@ -265,8 +265,8 @@ describe("Sign Up Page", () => {
       setup();
       await userEvent.type(passwordInput, 'P4ssword');
       await userEvent.type(passwordRepeatInput, 'P4ssword');
-      const button = screen.queryByRole("button", {name : en.signUp});
-      const form = screen.queryByTestId('form-sign-up');
+      const button = screen.queryByRole("button", {name : en.register});
+      const form = screen.getByTestId('form-sign-up');
       await userEvent.click(button);
       await waitForElementToBeRemoved(form);
     })
