@@ -89,7 +89,6 @@ class SignUpPage extends Component {
         {signUpSuccess && (<div className="alert alert-success mt-3">
           Please check your e-mail to activate your account
         </div>)}
-        <LanguageSelector/>
       </div>
     );
   }
