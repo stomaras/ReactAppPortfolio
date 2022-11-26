@@ -232,10 +232,19 @@ describe("Sign Up Page", () => {
     afterEach(() => {
       act(() => {
         i18n.changeLanguage("en");
-      })
-      
+      })  
     })
-    
+
+    it("Initially display all text in english", () => {
+      setup();
+      expect(screen.getByRole("heading", {name: en.signUp})).toBeInTheDocument();
+      expect(screen.getByRole('button', {name: en.register})).toBeInTheDocument();
+      expect(screen.getByLabelText(en.username)).toBeInTheDocument();
+      expect(screen.getByLabelText(en.email)).toBeInTheDocument();
+      expect(screen.getByLabelText(en.password)).toBeInTheDocument();
+      expect(screen.getByLabelText(en.passwordRepeat)).toBeInTheDocument();
+    })
+  
     it("Displays all text in turkish after changing the language", async () => {
       setup();
       const turkishToggle = screen.getByTitle("Turkce");
@@ -248,15 +257,7 @@ describe("Sign Up Page", () => {
       expect(screen.getByLabelText(tr.password)).toBeInTheDocument();
       expect(screen.getByLabelText(tr.passwordRepeat)).toBeInTheDocument();
     })
-    it("Initially display all text in english", () => {
-      setup();
-      expect(screen.getByRole("heading", {name: en.signUp})).toBeInTheDocument();
-      expect(screen.getByRole('button', {name: en.register})).toBeInTheDocument();
-      expect(screen.getByLabelText(en.username)).toBeInTheDocument();
-      expect(screen.getByLabelText(en.email)).toBeInTheDocument();
-      expect(screen.getByLabelText(en.password)).toBeInTheDocument();
-      expect(screen.getByLabelText(en.passwordRepeat)).toBeInTheDocument();
-    })
+    
     it("Displays all text in english after changing back from turkish", async () => {
       setup();
       const turkishToggle = screen.getByTitle("Turkce");
@@ -270,6 +271,17 @@ describe("Sign Up Page", () => {
       expect(screen.getByLabelText(en.email)).toBeInTheDocument();
       expect(screen.getByLabelText(en.password)).toBeInTheDocument();
       expect(screen.getByLabelText(en.passwordRepeat)).toBeInTheDocument();
+    })
+
+    it("Displays password mismatch validation in Turkish", async () => {
+      setup();
+      const turkishToggle = screen.getByTitle("Turkce");
+      await userEvent.click(turkishToggle);
+
+      const passwordInput = screen.getByLabelText(tr.password);
+      userEvent.type(passwordInput, "P4ss");
+      const validationMessageInTurkish = screen.queryByText(tr.passwordMismatchValidation);
+      expect(validationMessageInTurkish).toBeInTheDocument();
     })
   })
 });

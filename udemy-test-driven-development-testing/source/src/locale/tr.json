@@ -4,5 +4,6 @@
     "email":"E-posta",
     "password":"Sifre",
     "passwordRepeat":"Sifre Tekrari",
-    "register":"Ragisd"
+    "register":"Ragisd",
+    "passwordMismatchValidation":"Sifreniz eslesmiyor"
   }

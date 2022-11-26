@@ -60,7 +60,7 @@ class SignUpPage extends Component {
       disabled = password !== passwordRepeat;
     }
 
-    let passwordMismatch = password !== passwordRepeat ? 'Password mismatch': "";
+    let passwordMismatch = password !== passwordRepeat ? t('passwordMismatchValidation'): "";
 
     return (
       <div>

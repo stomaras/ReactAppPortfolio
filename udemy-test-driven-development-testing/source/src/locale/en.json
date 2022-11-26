@@ -4,5 +4,6 @@
     "email":"E-mail",
     "password":"Password",
     "passwordRepeat":"Password Repeat",
-    "register": "Register"
+    "register": "Register",
+    "passwordMismatchValidation": "Password mismatch"
 }
