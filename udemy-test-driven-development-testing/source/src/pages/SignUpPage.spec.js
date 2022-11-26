@@ -220,6 +220,7 @@ describe("Sign Up Page", () => {
   });
 
   describe("Internationalization", () => {
+    let turkishToggle, englishToggle;
     const setup = () => {
       render(
         <>
@@ -227,6 +228,8 @@ describe("Sign Up Page", () => {
           <LanguageSelector/> 
         </>
       )
+      turkishToggle = screen.getByTitle('Turkce');
+      englishToggle = screen.getByTitle('English');
     }
     
     afterEach(() => {
@@ -247,7 +250,6 @@ describe("Sign Up Page", () => {
   
     it("Displays all text in turkish after changing the language", async () => {
       setup();
-      const turkishToggle = screen.getByTitle("Turkce");
       await userEvent.click(turkishToggle);
 
       expect(screen.getByRole("heading", {name: tr.signUp})).toBeInTheDocument();
@@ -260,9 +262,7 @@ describe("Sign Up Page", () => {
     
     it("Displays all text in english after changing back from turkish", async () => {
       setup();
-      const turkishToggle = screen.getByTitle("Turkce");
       await userEvent.click(turkishToggle);
-      const englishToggle = screen.getByTitle("English");
       await userEvent.click(englishToggle);
 
       expect(screen.getByRole("heading", {name: en.signUp})).toBeInTheDocument();
@@ -275,11 +275,9 @@ describe("Sign Up Page", () => {
 
     it("Displays password mismatch validation in Turkish", async () => {
       setup();
-      const turkishToggle = screen.getByTitle("Turkce");
       await userEvent.click(turkishToggle);
-
       const passwordInput = screen.getByLabelText(tr.password);
-      userEvent.type(passwordInput, "P4ss");
+      await userEvent.type(passwordInput, "P4ss");
       const validationMessageInTurkish = screen.queryByText(tr.passwordMismatchValidation);
       expect(validationMessageInTurkish).toBeInTheDocument();
     })
