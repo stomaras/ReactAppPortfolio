@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
-import axios from "axios";
 import { Component } from "react";
 import Input from "../components/Input";
 import { withTranslation } from "react-i18next";
 import LanguageSelector from "../components/LanguageSelector";
+import { signUp } from "../api/apiCalls";
 
 class SignUpPage extends Component {
   state = {
@@ -37,11 +37,7 @@ class SignUpPage extends Component {
     };
     this.setState({apiProgress: true});
     try {
-      await axios.post("/api/1.0/users", body, {
-        headers: {
-          "Accept-Language": this.props.i18n.language
-        }
-      })
+      await signUp(body);
       this.setState({signUpSuccess:true});
     } catch (error) {
       if(error.response.status === 400){
