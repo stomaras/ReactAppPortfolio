@@ -269,6 +269,18 @@ describe("Sign Up Page", () => {
       const form = screen.getByTestId('form-sign-up');
       await userEvent.click(button);
       await waitForElementToBeRemoved(form);
+      expect(acceptLanguageHeader).toBe("en");
+    })
+    it("sends accept language header as tr for outgoing request after selecting that language", async () => {
+      setup();
+      await userEvent.type(passwordInput, 'P4ssword');
+      await userEvent.type(passwordRepeatInput, 'P4ssword');
+      const button = screen.queryByRole('button', {name: en.register});
+      await userEvent.click(turkishToggle);
+      const form = screen.getByTestId('form-sign-up');
+      await userEvent.click(button);
+      await waitForElementToBeRemoved(form);
+      expect(acceptLanguageHeader).toBe('tr');
     })
   })
 });

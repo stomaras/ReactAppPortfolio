@@ -23,6 +23,6 @@ Section 4
   in client side validations messages we can replace text with translation messsages 
   for that we receiving from backend we can not do anything about them
 
-Note: waitForElementToBeRemoved is not compatible with elements queried by findBy
+Note: waitForElementToBeRemoved is not compatible with elements queriedBy by findBy
 
 */
