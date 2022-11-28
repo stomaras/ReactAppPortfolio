@@ -5,53 +5,39 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import {useTranslation} from "react-i18next";
-import {useState} from "react";
 import logo from "./assets/Hoaxify.jpg";
+import { BrowserRouter,Route, Link } from "react-router-dom";
 
 function App() {
   const {t} = useTranslation();
 
-  const [path, setPath] = useState(window.location.pathname);
-
-
-  const onClickLink = (event) => {
-    event.preventDefault();
-    const path = event.currentTarget.attributes.href.value
-    window.history.pushState({}, '', path);
-    setPath(path);
-  }
-
-
   return (
-    <>
-    <nav className="navbar navbar-expand navbar-light bg-light shadow-small">
+    <BrowserRouter>
+      <nav className="navbar navbar-expand navbar-light bg-light shadow-small">
+        <div className="container">
+          <Link 
+            className="navbar-brand" 
+            to="/" 
+            title="Home" 
+          >
+            <img src={logo} alt="Hoaxify" width="60"/>
+            Hoaxify
+          </Link>
+          <ul className="navbar-nav">
+            <Link className="nav-link" to="/signup">{t('signUp')}</Link>
+            <Link className="nav-link" to="/login">Login</Link>
+          </ul>
+        </div>
+        
+      </nav>
       <div className="container">
-        <a 
-          className="navbar-brand" 
-          href="/" 
-          title="Home" 
-          onClick={onClickLink}
-        >
-          <img src={logo} alt="Hoaxify" width="60"/>
-          Hoaxify
-        </a>
-        <ul className="navbar-nav">
-          <a className="nav-link" href="/signup" onClick={onClickLink}>{t('signUp')}</a>
-          <a className="nav-link" href="/login" onClick={onClickLink}>Login</a>
-        </ul>
+        <Route path="/" component={HomePage}/>
+        <Route path="/signup" component={SignUpPage}/>
+        <Route path="/login" component={LoginPage}/>
+        <Route path="/user/:id" component={UserPage}/>
+        <LanguageSelector/>
       </div>
-      
-    </nav>
-    <div className="container">
-      { path === '/' && <HomePage/>}
-      { path === '/signup' && <SignUpPage />}
-      { path === '/login' && <LoginPage/>}
-      { path.startsWith('/user/') && <UserPage/>}
-      <LanguageSelector/>
-    </div>
-    </>
-
-    
+    </BrowserRouter>    
   );
 }
 
@@ -73,5 +59,7 @@ Section 5
 - window.history.pushState({},"","/signup")
   the testing environment is rendering the page with this url 
   npm install react-router-dom@5.3.0
+
+anchor is looking for href attribute but link we pass it with to property of this component
 
 */
