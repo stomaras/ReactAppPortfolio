@@ -70,6 +70,13 @@ describe("Routing", () => {
         expect(screen.getByTestId(visiblePage)).toBeInTheDocument();
     })
 
+    it("displays home page when clicking brand logo", async () => {
+        setup("/login");
+        const logo = screen.queryByAltText("Hoaxify");
+        await userEvent.click(logo);
+        expect(screen.getByTestId("home-page")).toBeInTheDocument();
+    })
+
 
 
     // it("displays homepage at /", () => {
