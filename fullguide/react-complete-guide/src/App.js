@@ -36,3 +36,43 @@ function App() {
 }
 
 export default App;
+
+/*
+Section 18: Dividing into Redux(An aternative to the context api)
+
+Local State               Cross-Component State         App-Wide State
+State that belongs to     State that affects multiple   State that affects the entire app
+a singe component         components                    (most/all components)
+
+E.g listening             E.g open/closed state of      E.g user authentication status
+touser input              a modaloverlay
+inan input field;
+toggling a "showmore"
+details field
+
+Shouldbe managed component Require props chains
+with useState()             props drilling
+
+
+
+Redux 
+
+Central Data (State)
+Store
+|
+|
+|Subscription
+|
+|
+Components
+
+Components never manipulate the store data 
+instead for that we have a concept called reducers 
+Reducer function is responsible for mutates (=changes) store data
+reducer function takes an nput and reduce that input Components 
+dispatch actions , redux forward actions to the reducer 
+when central data store changes subscribedcomponents notified so theycanupdate their UI
+
+
+
+*/
