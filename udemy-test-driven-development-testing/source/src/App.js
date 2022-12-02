@@ -6,13 +6,13 @@ import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import {useTranslation} from "react-i18next";
 import logo from "./assets/Hoaxify.jpg";
-import { BrowserRouter,Route, Link } from "react-router-dom";
+import { BrowserRouter as Router ,Route, Link } from "react-router-dom";
 
 function App() {
   const {t} = useTranslation();
 
   return (
-    <BrowserRouter>
+    <Router>
       <nav className="navbar navbar-expand navbar-light bg-light shadow-small">
         <div className="container">
           <Link 
@@ -30,13 +30,13 @@ function App() {
         </div>
       </nav>
       <div className="container">
-        <Route path="/" component={HomePage}/>
+        <Route exact path="/" component={HomePage}/>
         <Route path="/signup" component={SignUpPage}/>
         <Route path="/login" component={LoginPage}/>
         <Route path="/user/:id" component={UserPage}/>
         <LanguageSelector/>
       </div>
-    </BrowserRouter>    
+    </Router>    
   );
 }
 
