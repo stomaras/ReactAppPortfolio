@@ -7,9 +7,16 @@ import UserPage from "./pages/UserPage";
 import {useTranslation} from "react-i18next";
 import logo from "./assets/Hoaxify.jpg";
 import { BrowserRouter as Router ,Route, Link } from "react-router-dom";
+import {useState} from "react";
 
 function App() {
   const {t} = useTranslation();
+
+  const [random, setRandom] = useState(10);
+
+  const generateRandom = () => {
+    setRandom(Math.random()*100);
+  }
 
   return (
     <Router>
@@ -31,11 +38,16 @@ function App() {
       </nav>
       <div className="container">
         <Route exact path="/" component={HomePage}/>
-        <Route path="/signup" component={SignUpPage}/>
-        <Route path="/login" component={LoginPage}/>
+        <Route path="/signup">
+          <SignUpPage random={random}/>
+        </Route>
+        <Route path="/login">
+          <LoginPage random={random}/>
+        </Route>
         <Route path="/user/:id" component={UserPage}/>
         <LanguageSelector/>
       </div>
+      <button onClick={generateRandom}>Generate Random</button>
     </Router>    
   );
 }
@@ -60,5 +72,16 @@ Section 5
   npm install react-router-dom@5.3.0
 
 anchor is looking for href attribute but link we pass it with to property of this component
+
+React Components have lifecycles 
+
+phases like : 
+
+1) Mounting
+2) Updating
+3) Unmounting
+
+lifecycle function are part of class components
+But after hooks we can react to lifecycle components in functional components to.
 
 */

@@ -13,8 +13,33 @@ class SignUpPage extends Component {
     passwordRepeat: "",
     apiProgress: false,
     signUpSuccess: false,
-    errors:{}
+    errors:{},
+    counter:0
   };
+
+  interval;
+
+  componentDidMount(){
+    console.log('mounted')
+    this.interval = setInterval(() => {
+      console.log('increasing counter');
+      this.setState((prevState) => {
+        return {
+          counter: prevState + 1
+        };
+      });
+    }, 1000);
+  }
+
+  componentDidUpdate(previousProps, previousState){
+    console.log('update', previousProps, this.props);
+
+  }
+
+  componentWillUnmount(){
+    console.log('unmount')
+    // clearInterval(this.interval);
+  }
 
   onChange = (event) => {
     const { id, value } = event.target;
