@@ -28,7 +28,6 @@ function App() {
             <Link className="nav-link" to="/login">Login</Link>
           </ul>
         </div>
-        
       </nav>
       <div className="container">
         <Route path="/" component={HomePage}/>
