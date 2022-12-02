@@ -1,7 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
-import ExpenseItem from "./components/ExpenseItem";
-
+import Expenses from "./components/Expenses/Expenses";
+import React from "react";
 function App() {
   const expenses = [
     {
@@ -23,25 +22,57 @@ function App() {
       date: new Date(2021, 2, 28),
     },
   ];
+  // return React.createElement(
+  //   "div",
+  //   {},
+  //   React.createElement("h2", {}, "Lets get started"),
+  //   React.createElement(Expenses, { items: expenses })
+  // );
   return (
     <div className="App">
-      <ExpenseItem
-        title={expenses[0].title}
-        amount={expenses[0].amount}
-        date={expenses[0].date}
-      />
-      <ExpenseItem
-        title={expenses[1].title}
-        amount={expenses[1].amount}
-        date={expenses[1].date}
-      />
-      <ExpenseItem
-        title={expenses[2].title}
-        amount={expenses[2].amount}
-        date={expenses[2].date}
-      />
+      <Expenses items={expenses} />
     </div>
   );
 }
 
 export default App;
+
+/*
+Section 18: Dividing into Redux(An aternative to the context api)
+
+Local State               Cross-Component State         App-Wide State
+State that belongs to     State that affects multiple   State that affects the entire app
+a singe component         components                    (most/all components)
+
+E.g listening             E.g open/closed state of      E.g user authentication status
+touser input              a modaloverlay
+inan input field;
+toggling a "showmore"
+details field
+
+Shouldbe managed component Require props chains
+with useState()             props drilling
+
+
+
+Redux 
+
+Central Data (State)
+Store
+|
+|
+|Subscription
+|
+|
+Components
+
+Components never manipulate the store data 
+instead for that we have a concept called reducers 
+Reducer function is responsible for mutates (=changes) store data
+reducer function takes an nput and reduce that input Components 
+dispatch actions , redux forward actions to the reducer 
+when central data store changes subscribedcomponents notified so theycanupdate their UI
+
+
+
+*/
