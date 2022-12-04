@@ -8,6 +8,7 @@ import {useTranslation} from "react-i18next";
 import logo from "./assets/Hoaxify.jpg";
 import { BrowserRouter as Router ,Route, Link } from "react-router-dom";
 import {useState} from "react";
+import AccountActivationPage from "./pages/AccountActivationPage";
 
 function App() {
   const {t} = useTranslation();
@@ -45,6 +46,7 @@ function App() {
           <LoginPage random={random}/>
         </Route>
         <Route path="/user/:id" component={UserPage}/>
+        <Route path="/activate/:token" component={AccountActivationPage}/>
         <LanguageSelector/>
       </div>
       <button onClick={generateRandom}>Generate Random</button>
