@@ -52,6 +52,8 @@ Section 4: React State & Working With Events:
 state really is seperated on a per component instance basis
 we get a new snapshot of the state when the component re-executes
 
+wheneveryou use two way binding you actually create a controlling component
+
 Section 18: Dividing into Redux(An aternative to the context api)
 
 Local State               Cross-Component State         App-Wide State
