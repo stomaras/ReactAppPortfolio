@@ -1,11 +1,28 @@
 import {render, screen} from "@testing-library/react";
 import App from "./App";
 import userEvent from "@testing-library/user-event";
+import { setupServer } from "msw/node";
+import { rest } from "msw";
+
+
+const server = setupServer(
+    rest.post("/api/1.0/users/token/:token", (req, res, ctx) => {
+        return res(ctx.status(200));
+    })
+);
+    
+beforeEach(() => {
+  server.resetHandlers();
+})
+
+beforeAll(() => server.listen());
+
+afterAll(() => server.close());
 
 describe("Routing", () => {
 
     const setup = (path) => {
-        window.history.pushState({}, '', path);
+        window.history.pushState({},'',path);
         render(<App/>);
     }
 
@@ -42,10 +59,11 @@ describe("Routing", () => {
         ${'/user/1'} | ${'signup-page'}
         ${'/user/1'} | ${'login-page'}
         ${'/user/1'} | ${'activation-page'}
-        ${'/activate/123'} | ${'home-page'}
         ${'/activate/123'} | ${'signup-page'}
         ${'/activate/123'} | ${'login-page'}
-        ${'/activate/123'} | ${'user-page'}
+        ${'/activate/123'} | ${'user-page'} 
+        ${'/activate/123'} | ${'home-page'}
+
     `(
         'does not display $pageTestId when path is $path',
         ({path, pageTestId}) => {
@@ -164,4 +182,6 @@ describe("Routing", () => {
         
     // })
    
-})
+});
+
+console.error = () => {};
