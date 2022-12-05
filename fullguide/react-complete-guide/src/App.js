@@ -1,6 +1,8 @@
 import "./App.css";
 import Expenses from "./components/Expenses/Expenses";
 import React from "react";
+import NewExpense from "./components/NewExpense/NewExpense";
+
 function App() {
   const expenses = [
     {
@@ -22,6 +24,11 @@ function App() {
       date: new Date(2021, 2, 28),
     },
   ];
+
+  const addExpenseHandler = (expense) => {
+    console.log("In App.js");
+    console.log(expense);
+  };
   // return React.createElement(
   //   "div",
   //   {},
@@ -30,6 +37,7 @@ function App() {
   // );
   return (
     <div className="App">
+      <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
     </div>
   );
@@ -38,6 +46,14 @@ function App() {
 export default App;
 
 /*
+Section 4: React State & Working With Events:
+- A closer look at the useState Hook
+
+state really is seperated on a per component instance basis
+we get a new snapshot of the state when the component re-executes
+
+wheneveryou use two way binding you actually create a controlling component
+
 Section 18: Dividing into Redux(An aternative to the context api)
 
 Local State               Cross-Component State         App-Wide State
